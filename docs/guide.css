@@ -32,6 +32,15 @@
 }
 .guide-section:target { border-color: #b9a8ef; }
 .guide-section h2 { margin-bottom: .45rem; font-size: clamp(1.25rem, 3vw, 1.55rem); letter-spacing: -.04em; }
+.guide-section > h3 { margin: 1.15rem 0 .4rem; font-size: 1rem; letter-spacing: -.02em; }
+.guide-callout {
+  margin-top: .85rem;
+  padding: .65rem .8rem;
+  border-left: 3px solid #a38be8;
+  background: #f9f7fd;
+  border-radius: .3rem;
+}
+.guide-actions { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .75rem; }
 .guide-section p, .guide-list, .guide-axes dd { color: #484256; }
 .guide-axes {
   display: grid;
