@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="실무자 인터뷰부터 구현, 인수인계와 확인 질문까지 연습하는 비공식 FDE 모의시험">
+  <title>FDE 모의시험 · COFA 연습실</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./guide.css">
+  <link rel="stylesheet" href="./fde.css">
+  <script type="module" src="./fde.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">모의시험 본문으로 이동</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">⌘</span><span>COFA <strong>연습실</strong></span></div>
+      <nav class="topbar-links" aria-label="연습실 메뉴">
+        <a href="./">코딩 과제</a>
+        <a href="./guide.html">학습 가이드</a>
+      </nav>
+    </div>
+  </header>
+  <div class="page fde-page">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">KRAFTON COFA 대비 · 비공식</p>
+        <h1>FDE 모의시험</h1>
+        <p>실무자에게 질문하고, 성공 조건을 합의한 뒤 작동하는 앱과 검증 근거를 남기세요.</p>
+      </div>
+      <a class="button button-primary" href="./fde-kit.zip" download>준비 키트 ZIP</a>
+    </div>
+    <main id="main" tabindex="-1">
+      <section class="panel fde-config" aria-label="모의시험 설정">
+        <label for="scenario">모의 과제
+          <select id="scenario"></select>
+        </label>
+        <label for="build-duration">구현 시간
+          <select id="build-duration">
+            <option value="75">압축 · 75분</option>
+            <option value="225">전체 · 225분</option>
+          </select>
+        </label>
+        <div class="build-clock">
+          <span class="muted">발견부터 제출 준비까지</span>
+          <strong id="build-time" class="time" role="timer">75:00</strong>
+        </div>
+        <div class="timer-actions">
+          <button type="button" class="button button-primary" id="start-build">타이머 시작</button>
+          <button type="button" class="button" id="reset-build" disabled>시간 초기화</button>
+        </div>
+      </section>
+
+      <div class="fde-grid">
+        <div class="fde-work">
+          <section class="panel guide-section">
+            <h2 id="scenario-title"></h2>
+            <p id="scenario-brief"></p>
+            <p class="muted"><a id="scenario-data">과제 샘플 데이터 다운로드</a></p>
+          </section>
+          <section class="panel guide-section">
+            <h2>실무자 인터뷰</h2>
+            <p class="muted">질문을 고르면 모의 실무자의 준비된 답을 확인할 수 있습니다.</p>
+            <div id="interview-questions" class="interview-questions"></div>
+            <ol id="interview-log" aria-label="인터뷰 기록" class="interview-log" aria-live="polite"></ol>
+          </section>
+          <section class="panel guide-section">
+            <h2><label for="agreement">성공 조건 합의</label></h2>
+            <p>사용자와 결정할 일, 현재 기준값과 목표, 측정 방법, 이번에 구현할 범위를 한 단락으로 적으세요.</p>
+            <textarea class="fde-notes" id="agreement" rows="5" placeholder="예시 — 누가, 무슨 상황에서, 어떤 결과를 얻어야 하나요? 성공을 확인할 입력과 관찰값은 무엇인가요?"></textarea>
+          </section>
+          <section class="panel guide-section">
+            <h2><label for="handoff">구현·검증·인수인계</label></h2>
+            <p>키트를 로컬 VS Code에서 열고 샘플 데이터가 화면에 보이는지 확인하세요. 합의한 규칙 하나를 구현한 뒤 대표 경로와 실패 경로를 재현하세요.</p>
+            <p><a class="button" id="open-fde-vscode" hidden>키트를 VS Code에서 열기 <span aria-hidden="true">↗</span></a></p>
+            <p><a href="https://github.com/JaerryLee/krafton-cofa/blob/main/docs/fde-kit/README.md">키트 실행법</a> · <a href="https://github.com/JaerryLee/krafton-cofa/blob/main/docs/fde-kit/WORKSHEET.md">합의·검증·인수인계 양식</a> · <a href="https://github.com/JaerryLee/krafton-cofa/blob/main/docs/fde-kit/PROMPTS.md">단계별 프롬프트</a></p>
+            <textarea class="fde-notes" id="handoff" rows="6" placeholder="합의한 계약 / 변경 위치 / 마지막 검증 명령과 실제 결과 / 남은 위험 / 다음 세션이 시작할 한 작업"></textarea>
+            <p class="muted" id="storage-message">과제별 메모와 답변은 브라우저에 저장됩니다.</p>
+            <button type="button" class="button" id="download-log">연습 기록 내보내기</button>
+          </section>
+          <section class="panel guide-section" id="qa">
+            <h2>사후 확인 질문</h2>
+            <p>질문 5개를 한 번에 하나씩 풉니다. 각 3분 동안 자신의 코드와 작업 기록을 근거로 직접 작성하세요.</p>
+            <button type="button" class="button button-primary qa-start" id="start-qa">확인 질문 시작</button>
+            <div id="qa-active" hidden>
+              <div class="qa-heading"><span class="tag" id="qa-count"></span><strong id="qa-time" class="time" role="timer"></strong></div>
+              <label id="qa-question" for="qa-answer"></label>
+              <textarea class="fde-notes" id="qa-answer" rows="5" placeholder="코드 위치 → 실제 동작 또는 관찰 → 영향 → 다음 검증"></textarea>
+              <p class="muted" id="qa-status" role="status"></p>
+              <button type="button" class="button button-primary" id="next-qa">답변 저장 후 다음</button>
+            </div>
+            <div class="guide-example" id="qa-review" hidden>
+              <h3>답변 검토</h3>
+              <p>함수나 파일 위치, 실제로 관찰한 결과, 위험이 드러나는 경우, 재현 방법을 각각 짚을 수 있는지 확인하세요.</p>
+              <ol id="qa-summary" class="guide-list"></ol>
+              <button type="button" class="button qa-start" id="retry-qa">새로 연습하기</button>
+            </div>
+          </section>
+        </div>
+
+        <aside class="fde-side" aria-label="연습 도구">
+          <section class="panel guide-section">
+            <h2>시간 배분</h2>
+            <ol id="phase-plan" class="guide-list"></ol>
+            <p class="muted fde-aside-note">구현 타이머와 확인 질문 타이머는 별도입니다.</p>
+          </section>
+          <section class="panel guide-section">
+            <h2>토요일까지</h2>
+            <ol class="guide-list">
+              <li><strong>11/18 수</strong> · 키트를 풀고 터미널에서 실행하세요. 최신 상태를 새 AI 세션에서 다시 띄우는 연습을 한 번 하세요.</li>
+              <li><strong>11/19 목</strong> · 게임 릴리스 과제로 225분 구현과 15분 확인 질문을 이어서 풀어보세요.</li>
+              <li><strong>11/20 금</strong> · 행사 체크인 과제로 두 번째 리허설을 하세요. 전체 시간이 부족하면 75분 모드를 쓰고 확인 질문까지 마치세요.</li>
+              <li><strong>11/21 토</strong> · 안내받은 도구·외부 자료·제출 조건을 확인한 뒤 시험 환경에서 실행 명령부터 확인하세요.</li>
+            </ol>
+          </section>
+          <section class="panel guide-section">
+            <h2>준비 자료</h2>
+            <ul class="guide-list">
+              <li><a href="https://github.com/JaerryLee/krafton-cofa/blob/main/docs/fde-kit/PLAYBOOK.md">리허설 계획과 환경 점검</a></li>
+              <li><a href="https://github.com/JaerryLee/krafton-cofa/blob/main/docs/fde-kit/REFERENCES.md">코파톤 후기와 비교 자료</a></li>
+              <li><a href="https://github.com/JaerryLee/krafton-cofa/blob/main/docs/fde-kit/STARTERS.md">검토한 오픈소스 후보</a></li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </main>
+    <footer class="footer">
+      <p>시간과 질문 구성은 공개 후기를 참고한 연습용 설정입니다. 실제 시험은 응시 안내를 따르세요.</p>
+      <a href="https://brunch.co.kr/@luma/5">코파톤 FDE 참가 후기 ↗</a>
+    </footer>
+  </div>
+  <noscript>모의시험의 질문과 타이머를 사용하려면 JavaScript를 켜주세요.</noscript>
+</body>
+</html>

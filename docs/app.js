@@ -1,3 +1,5 @@
+import { workspaceUri } from "./workspace.js";
+
 const repository = "https://github.com/JaerryLee/krafton-cofa";
 const storagePrefix = "krafton-cofa:";
 const session = new Map();
@@ -122,16 +124,6 @@ function normalizeWorkspace(input) {
   return null;
 }
 
-function workspaceUri(path) {
-  const segments = path.split("/");
-  const encoded = segments.map((segment, index) => {
-    if (index === 0 && /^[a-z]:$/i.test(segment)) return segment;
-    return encodeURIComponent(segment);
-  }).join("/");
-  const absolutePath = encoded.startsWith("/") ? encoded : "/" + encoded;
-  return "vscode://file" + absolutePath + "exercises/" + currentExercise.id + "/";
-}
-
 function renderWorkspace() {
   const path = readStorage("workspace");
   byId("workspace-indicator").dataset.configured = Boolean(path);
@@ -141,7 +133,7 @@ function renderWorkspace() {
   const link = byId("open-vscode");
   link.hidden = !path;
   if (path) {
-    link.href = workspaceUri(path);
+    link.href = workspaceUri(path, "exercises/" + currentExercise.id);
   } else {
     link.removeAttribute("href");
   }

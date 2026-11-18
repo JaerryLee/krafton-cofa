@@ -6,6 +6,8 @@ KRAFTON COFA 대비를 위한 비공식 개발 과제입니다. [Cofa Probe의 �
 
 [연습실 열기](https://jaerrylee.github.io/krafton-cofa/)
 
+[FDE 모의시험](https://jaerrylee.github.io/krafton-cofa/fde.html)에서 두 도메인의 실무자 인터뷰, 75분·225분 구현, 인수인계와 3분 확인 질문 5개를 연습할 수 있습니다. [준비 키트 ZIP](https://jaerrylee.github.io/krafton-cofa/fde-kit.zip)에는 실행 가능한 Python 웹 시작점, 샘플 데이터, 단계별 프롬프트, 작업 시트와 리허설 계획이 들어 있습니다. 저장소를 복제했다면 [키트 실행법](docs/fde-kit/README.md)을 참고하세요.
+
 [COFA 학습 가이드](https://jaerrylee.github.io/krafton-cofa/guide.html)에서 기술·의도·인지 관점을 연습에 적용하는 방법, 단계별 프롬프트, 과제별 반례와 사후 Q&A 예시를 확인할 수 있습니다.
 
 VS Code와 Python 3.9 이상이 설치된 환경에서 저장소를 복제하세요.

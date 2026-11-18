@@ -78,17 +78,8 @@ code, pre, .time { font-family: ui-monospace, SFMono-Regular, Consolas, monospac
 .eyebrow { color: var(--purple); font-size: .8rem; font-weight: 750; letter-spacing: .035em; }
 .intro h1 { font-size: clamp(2.1rem, 4vw, 3.15rem); letter-spacing: -.055em; margin: .2em 0 .15em; }
 .intro p:not(.eyebrow) { color: var(--muted); font-size: .94rem; line-height: 1.6; }
-.intro-stack {
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
-  gap: .55rem;
-  padding: .5rem .8rem;
-  background: #ece9f5;
-  border-radius: .55rem;
-}
+.intro-action { white-space: nowrap; }
 .indicator { width: .5rem; height: .5rem; border-radius: 50%; background: #9e95b5; flex: none; }
-.intro-stack .indicator { background: var(--purple); }
 .indicator[data-configured="true"] { background: var(--green); }
 .load-status { background: white; padding: 1.25rem; border: 1px solid var(--line); border-radius: 1rem; }
 
@@ -262,7 +253,7 @@ dialog label { display: block; margin: .9rem 0 .3rem; font-size: .85rem; font-we
   .brand-mark { width: 29px; height: 29px; }
   .topbar-links a { font-size: .78rem; }
   .intro { display: block; padding-top: 1.65rem; padding-bottom: 1.1rem; }
-  .intro-stack { display: none; }
+  .intro-action { margin-top: .7rem; }
   .dashboard { grid-template-columns: minmax(0, 1fr); }
   .tools { grid-row: 2; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .workspace { grid-column: 2; grid-row: 1 / 3; }

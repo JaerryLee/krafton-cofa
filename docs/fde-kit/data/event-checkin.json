@@ -1,0 +1,15 @@
+{
+  "title": "팝업 행사 입장 대기열",
+  "context": {
+    "capacity": {"morning": 1, "afternoon": 2},
+    "reservations": {"A": "morning", "B": "morning", "C": "afternoon"}
+  },
+  "records": [
+    {"id": "L-001", "label": "예약 A 입장 요청", "detail": "morning · 요청 Q1", "request_id": "Q1", "reservation_id": "A", "slot": "morning"},
+    {"id": "L-002", "label": "예약 A 입장 재전송", "detail": "morning · 동일 요청 Q1", "request_id": "Q1", "reservation_id": "A", "slot": "morning"},
+    {"id": "L-003", "label": "같은 ID로 다른 슬롯", "detail": "afternoon · 기존 요청 Q1", "request_id": "Q1", "reservation_id": "A", "slot": "afternoon"},
+    {"id": "L-004", "label": "예약 B 입장 요청", "detail": "morning · 요청 Q2", "request_id": "Q2", "reservation_id": "B", "slot": "morning"},
+    {"id": "L-005", "label": "미등록 예약", "detail": "afternoon · 요청 Q3", "request_id": "Q3", "reservation_id": "D", "slot": "afternoon"},
+    {"id": "L-006", "label": "이미 처리된 예약 A", "detail": "morning · 신규 요청 Q4", "request_id": "Q4", "reservation_id": "A", "slot": "morning"}
+  ]
+}

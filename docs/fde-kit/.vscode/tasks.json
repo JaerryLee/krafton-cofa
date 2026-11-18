@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "FDE 키트 테스트",
+      "type": "process",
+      "command": "python3",
+      "args": ["-m", "unittest", "-v"],
+      "windows": {
+        "command": "py",
+        "args": ["-3", "-m", "unittest", "-v"]
+      },
+      "group": {"kind": "test", "isDefault": true},
+      "problemMatcher": []
+    },
+    {
+      "label": "FDE 키트 서버 실행",
+      "type": "process",
+      "command": "python3",
+      "args": ["server.py"],
+      "windows": {
+        "command": "py",
+        "args": ["-3", "server.py"]
+      },
+      "problemMatcher": []
+    }
+  ]
+}

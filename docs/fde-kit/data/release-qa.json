@@ -1,0 +1,12 @@
+{
+  "title": "게임 빌드 릴리스 점검",
+  "context": {"candidate_build": "B-217", "baseline_minutes": 12, "target_minutes": 2},
+  "records": [
+    {"id": "R-001", "label": "콘솔 오디오 크래시 수정 확인", "detail": "B-217 · Console · 14:20", "build": "B-217", "platform": "Console", "issue_key": "audio", "observed_at": "2026-11-17T14:20:00+09:00", "state": "fixed", "severity": "blocker", "reproducible": false},
+    {"id": "R-002", "label": "콘솔 오디오 크래시", "detail": "B-217 · Console · 14:05, 늦게 들어온 이전 관측", "build": "B-217", "platform": "Console", "issue_key": "audio", "observed_at": "2026-11-17T14:05:00+09:00", "state": "open", "severity": "blocker", "reproducible": true},
+    {"id": "R-003", "label": "PC UI 멈춤 보고", "detail": "B-217 · PC · 재현 여부 누락", "build": "B-217", "platform": "PC", "issue_key": "ui-freeze", "observed_at": "2026-11-17T14:23:00+09:00", "state": "open", "severity": "blocker", "reproducible": null},
+    {"id": "R-004", "label": "이전 빌드 접속 오류", "detail": "B-216 · PC", "build": "B-216", "platform": "PC", "issue_key": "connect", "observed_at": "2026-11-17T14:29:00+09:00", "state": "open", "severity": "blocker", "reproducible": true},
+    {"id": "R-005", "label": "PC 로그인 차단", "detail": "B-217 · PC · 14:26", "build": "B-217", "platform": "PC", "issue_key": "sign-in", "observed_at": "2026-11-17T14:26:00+09:00", "state": "open", "severity": "blocker", "reproducible": true},
+    {"id": "R-006", "label": "PC 로그인 정상 보고", "detail": "B-217 · PC · 같은 관측 시각", "build": "B-217", "platform": "PC", "issue_key": "sign-in", "observed_at": "2026-11-17T14:26:00+09:00", "state": "fixed", "severity": "blocker", "reproducible": false}
+  ]
+}
