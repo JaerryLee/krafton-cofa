@@ -1,6 +1,7 @@
 [
   {
     "id": "match-leaderboard",
+    "hasGuide": true,
     "title": "게임 전적 집계",
     "topic": "데이터 집계",
     "minutes": 35,
@@ -23,6 +24,7 @@
   },
   {
     "id": "inventory-reservations",
+    "hasGuide": true,
     "title": "재고 예약",
     "topic": "상태 처리",
     "minutes": 45,

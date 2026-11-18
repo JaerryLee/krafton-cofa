@@ -160,6 +160,7 @@ function renderExercise() {
   replaceList("exercise-requirements", exercise.requirements, "li");
   replaceList("review-questions", exercise.reviewQuestions, "li");
   byId("source-link").href = repository + "/tree/main/exercises/" + exercise.id;
+  byId("exercise-guide").href = exercise.hasGuide ? "./guide.html#" + exercise.id : "./guide.html";
   renderNotes();
   renderCatalog();
   renderWorkspace();
@@ -225,22 +226,6 @@ function registerHandlers() {
     const key = exerciseKey("complete");
     writeStorage(key, readStorage(key) !== true);
     renderCatalog();
-  });
-  byId("copy-test").addEventListener("click", async () => {
-    const command = byId("test-command");
-    try {
-      await navigator.clipboard.writeText(command.textContent);
-      setText("copy-status", "테스트 명령을 복사했습니다.");
-      setText("copy-test", "복사됨");
-      window.setTimeout(() => setText("copy-test", "복사"), 1500);
-    } catch {
-      const range = document.createRange();
-      range.selectNodeContents(command);
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-      setText("copy-status", "선택된 명령을 복사하세요.");
-    }
   });
   window.addEventListener("hashchange", renderExercise);
   window.addEventListener("storage", (event) => {

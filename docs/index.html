@@ -8,6 +8,7 @@
   <title>COFA 연습실</title>
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./app.js"></script>
+  <script type="module" src="./clipboard.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">과제 본문으로 이동</a>
@@ -18,6 +19,7 @@
         <span>COFA <strong>연습실</strong></span>
       </div>
       <div class="topbar-links">
+        <a class="guide-nav-link" href="./guide.html">학습 가이드</a>
         <a href="https://github.com/JaerryLee/krafton-cofa">GitHub <span aria-hidden="true">↗</span></a>
         <button class="button button-small" type="button" id="open-settings">워크스페이스 설정</button>
       </div>
@@ -49,6 +51,7 @@
           <div class="tags" id="exercise-tags"></div>
           <h2 id="exercise-title"></h2>
           <p id="exercise-summary"></p>
+          <a class="text-link exercise-guide" id="exercise-guide" href="./guide.html">풀이 전략과 프롬프트 <span aria-hidden="true">↗</span></a>
         </div>
         <div class="brief-content">
           <section>
@@ -102,7 +105,7 @@
           <div class="test-command">
             <div class="tool-heading">
               <h3>과제 폴더에서 테스트</h3>
-              <button class="copy-button" id="copy-test" type="button">복사</button>
+              <button class="copy-button" type="button" data-copy="test-command" aria-label="테스트 명령 복사" hidden>복사</button>
             </div>
             <code id="test-command">python3 -m unittest -v</code>
             <span class="sr-only" role="status" id="copy-status"></span>

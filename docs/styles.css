@@ -66,6 +66,7 @@ code, pre, .time { font-family: ui-monospace, SFMono-Regular, Consolas, monospac
 }
 .topbar-links a { color: var(--muted); text-decoration: none; font-size: .85rem; white-space: nowrap; }
 .topbar-links a:hover, .text-link:hover { text-decoration: underline; }
+.topbar-links .guide-nav-link { color: var(--purple); font-weight: 700; }
 
 .intro {
   display: flex;
@@ -136,6 +137,7 @@ code, pre, .time { font-family: ui-monospace, SFMono-Regular, Consolas, monospac
 .tag + .tag { color: #534c66; background: #f1eff6; }
 .brief-header h2 { margin: .65rem 0 .4rem; font-size: clamp(1.55rem, 3vw, 2rem); letter-spacing: -.045em; }
 .brief-header p, .brief-content li { color: #484256; font-size: .91rem; line-height: 1.72; overflow-wrap: anywhere; }
+.brief-header .exercise-guide { margin-top: .6rem; font-size: .83rem; font-weight: 700; }
 .brief-content { padding: 1.35rem clamp(1.05rem, 3vw, 2rem) 1.5rem; }
 .brief-content section + section { margin-top: 1.45rem; }
 .brief-content h3 { font-size: 1rem; margin-bottom: .65rem; letter-spacing: -.02em; }
@@ -266,7 +268,8 @@ dialog label { display: block; margin: .9rem 0 .3rem; font-size: .85rem; font-we
   .workspace { grid-column: 2; grid-row: 1 / 3; }
 }
 @media (max-width: 420px) {
-  .topbar-inner { gap: .5rem; }
+  .topbar-inner { gap: .5rem; flex-wrap: wrap; padding-block: .6rem; }
+  .topbar-links { flex-wrap: wrap; }
   .tools { grid-template-columns: minmax(0, 1fr); }
   .workspace { grid-column: auto; grid-row: auto; }
   #exercise-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }

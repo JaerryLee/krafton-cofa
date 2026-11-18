@@ -6,6 +6,8 @@ KRAFTON COFA 대비를 위한 비공식 개발 과제입니다. [Cofa Probe의 �
 
 [연습실 열기](https://jaerrylee.github.io/krafton-cofa/)
 
+[COFA 학습 가이드](https://jaerrylee.github.io/krafton-cofa/guide.html)에서 기술·의도·인지 관점을 연습에 적용하는 방법, 단계별 프롬프트, 과제별 반례와 사후 Q&A 예시를 확인할 수 있습니다.
+
 VS Code와 Python 3.9 이상이 설치된 환경에서 저장소를 복제하세요.
 
 ```sh
@@ -37,4 +39,4 @@ python3 -m http.server 8080 --directory docs --bind 127.0.0.1
 
 ## 과제 추가
 
-`docs/exercises.json`에 기존 항목과 같은 형식으로 과제를 등록하세요. 같은 ID로 `exercises/<id>/`를 만들고 `solution.py`, `test_solution.py`, `.vscode/tasks.json`을 추가하면 됩니다. GitHub Pages는 `main` 브랜치의 `docs/`를 게시합니다.
+`docs/exercises.json`에 기존 항목과 같은 형식으로 과제를 등록하세요. 같은 ID로 `exercises/<id>/`를 만들고 `solution.py`, `test_solution.py`, `.vscode/tasks.json`을 추가하면 됩니다. 과제별 가이드를 만들면 `docs/guide.html`에 같은 ID의 섹션을 추가하고 과제 항목에 `"hasGuide": true`를 설정하세요. GitHub Pages는 `main` 브랜치의 `docs/`를 게시합니다.
