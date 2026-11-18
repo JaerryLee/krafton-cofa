@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="KRAFTON COFA 대비 비공식 연습실. 브라우저에서 과제를 읽고 로컬 VS Code에서 구현과 테스트를 진행하세요.">
+  <meta name="theme-color" content="#f5f5fa">
+  <title>COFA 연습실</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">과제 본문으로 이동</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">⌘</span>
+        <span>COFA <strong>연습실</strong></span>
+      </div>
+      <div class="topbar-links">
+        <a href="https://github.com/JaerryLee/krafton-cofa">GitHub <span aria-hidden="true">↗</span></a>
+        <button class="button button-small" type="button" id="open-settings">워크스페이스 설정</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">KRAFTON COFA 대비 · 비공식</p>
+        <h1>실전 연습실</h1>
+        <p>과제를 고르고 로컬 VS Code에서 구현과 검증을 진행하세요.</p>
+      </div>
+      <p class="intro-stack"><span class="indicator" aria-hidden="true"></span> Python · VS Code</p>
+    </div>
+
+    <p id="load-status" class="load-status" role="status">과제를 불러오는 중입니다.</p>
+    <div class="dashboard" id="dashboard" hidden>
+      <aside class="catalog panel">
+        <div class="catalog-header">
+          <h2>과제 목록</h2>
+          <span id="completion-count" class="muted"></span>
+        </div>
+        <nav id="exercise-list" aria-label="연습 과제"></nav>
+      </aside>
+
+      <main id="main" class="panel brief" tabindex="-1">
+        <div class="brief-header">
+          <div class="tags" id="exercise-tags"></div>
+          <h2 id="exercise-title"></h2>
+          <p id="exercise-summary"></p>
+        </div>
+        <div class="brief-content">
+          <section>
+            <h3>구현 요구사항</h3>
+            <p class="signature"><code id="exercise-signature"></code></p>
+            <ul id="exercise-requirements"></ul>
+          </section>
+          <section>
+            <h3>입출력 예시</h3>
+            <div class="examples">
+              <div class="example">
+                <p>입력</p>
+                <pre><code id="example-input"></code></pre>
+              </div>
+              <div class="example">
+                <p>출력</p>
+                <pre><code id="example-output"></code></pre>
+              </div>
+            </div>
+          </section>
+          <section class="review">
+            <h3>풀이 회고</h3>
+            <ul id="review-questions"></ul>
+            <label class="sr-only" for="review-notes">풀이 회고 메모</label>
+            <textarea id="review-notes" rows="4" placeholder="AI에 요청한 작업, 직접 확인한 근거와 개선점을 적어보세요."></textarea>
+            <p class="muted" id="notes-status" role="status">메모는 이 브라우저에 저장됩니다.</p>
+          </section>
+        </div>
+      </main>
+
+      <aside class="tools" aria-label="과제 도구">
+        <section class="panel tool-card">
+          <div class="tool-heading">
+            <h2>타이머</h2>
+            <span class="timer-state" id="timer-state"></span>
+          </div>
+          <p class="time" id="timer-display" role="timer"></p>
+          <div class="timer-actions">
+            <button class="button button-primary" id="timer-toggle" type="button"></button>
+            <button class="button" id="timer-reset" type="button">초기화</button>
+          </div>
+        </section>
+        <section class="panel tool-card workspace">
+          <div class="tool-heading">
+            <h2>로컬 작업</h2>
+            <span class="indicator" id="workspace-indicator" aria-hidden="true"></span>
+          </div>
+          <p id="workspace-status"></p>
+          <a class="button button-primary" id="open-vscode" hidden>VS Code에서 열기 <span aria-hidden="true">↗</span></a>
+          <button class="button button-primary" id="connect-workspace" type="button" hidden>경로 설정</button>
+          <div class="test-command">
+            <div class="tool-heading">
+              <h3>과제 폴더에서 테스트</h3>
+              <button class="copy-button" id="copy-test" type="button">복사</button>
+            </div>
+            <code id="test-command">python3 -m unittest -v</code>
+            <span class="sr-only" role="status" id="copy-status"></span>
+          </div>
+          <a class="text-link" id="source-link">GitHub에서 과제 보기 <span aria-hidden="true">↗</span></a>
+        </section>
+        <section class="panel tool-card">
+          <h2>진행 상태</h2>
+          <p id="progress-status"></p>
+          <button class="button" id="toggle-completion" type="button"></button>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      <p>공개 자료를 참고해 독자적으로 만든 비공식 연습 과제입니다.</p>
+      <a href="https://www.getcofa.com/ko/probe">Cofa Probe 공개 소개 ↗</a>
+    </footer>
+  </div>
+
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <form id="settings-form">
+      <div class="dialog-heading">
+        <h2 id="settings-title">워크스페이스 설정</h2>
+        <button type="button" id="close-settings" class="button button-small" aria-label="설정 닫기">닫기</button>
+      </div>
+      <p>저장소를 <a href="https://github.com/JaerryLee/krafton-cofa">GitHub</a>에서 내려받고, 로컬에 저장한 폴더의 절대 경로를 입력하세요. macOS·Linux에서는 저장소 루트에서 <code>pwd</code>를 실행하면 됩니다.</p>
+      <label for="workspace-path">저장소 루트 경로</label>
+      <input id="workspace-path" type="text" placeholder="/Users/me/work/krafton-cofa" spellcheck="false" aria-describedby="path-help">
+      <p class="muted" id="path-help">Windows 예시 <code>C:\Projects\krafton-cofa</code></p>
+      <p class="form-error" id="path-error" role="alert" hidden></p>
+      <div class="dialog-actions">
+        <button class="button" id="clear-path" type="button">연결 해제</button>
+        <button class="button button-primary" type="submit">경로 저장</button>
+      </div>
+    </form>
+  </dialog>
+  <noscript>과제 목록과 타이머를 사용하려면 JavaScript를 켜주세요.</noscript>
+</body>
+</html>

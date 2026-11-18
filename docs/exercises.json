@@ -1,0 +1,46 @@
+[
+  {
+    "id": "match-leaderboard",
+    "title": "게임 전적 집계",
+    "topic": "데이터 집계",
+    "minutes": 35,
+    "summary": "수집기가 전달한 매치 결과에서 재전송 중복을 제거하고, 게임 운영팀이 사용할 플레이어 순위표를 만드세요.",
+    "signature": "build_leaderboard(events) → list[PlayerStats]",
+    "requirements": [
+      "입력은 match_id, winner, loser 문자열을 가진 경기 목록입니다. 각 값은 비어 있지 않고 승자와 패자는 서로 다릅니다. 플레이어 ID와 매치 ID는 대소문자를 구분합니다.",
+      "같은 match_id로 승자와 패자가 같은 이벤트가 다시 오면 한 번만 집계하세요. 같은 ID에 다른 경기 결과가 들어오면 ValueError를 발생시키세요.",
+      "각 행에는 player_id, games, wins, win_rate_bps를 넣으세요. 패배만 있는 플레이어도 포함합니다.",
+      "win_rate_bps는 wins × 10,000 ÷ games를 가장 가까운 정수로 반올림한 값입니다. 정확히 절반이면 올림합니다. 100%는 10,000입니다.",
+      "승률 값이 큰 순서, 승리 횟수가 많은 순서, player_id의 파이썬 문자열 오름차순으로 정렬하세요. 경기 목록이 비어 있으면 빈 목록을 반환하세요."
+    ],
+    "exampleInput": "[\n  {\"match_id\": \"m1\", \"winner\": \"jiu\", \"loser\": \"sol\"},\n  {\"match_id\": \"m2\", \"winner\": \"sol\", \"loser\": \"min\"},\n  {\"match_id\": \"m1\", \"winner\": \"jiu\", \"loser\": \"sol\"}\n]",
+    "exampleOutput": "[\n  {\"player_id\": \"jiu\", \"games\": 1, \"wins\": 1, \"win_rate_bps\": 10000},\n  {\"player_id\": \"sol\", \"games\": 2, \"wins\": 1, \"win_rate_bps\": 5000},\n  {\"player_id\": \"min\", \"games\": 1, \"wins\": 0, \"win_rate_bps\": 0}\n]",
+    "reviewQuestions": [
+      "재전송과 충돌을 어떤 데이터 구조로 구분했나요?",
+      "반올림이나 정렬에서 어떤 경계 사례를 직접 확인했나요?",
+      "AI가 제안한 변경을 채택하거나 수정한 근거는 무엇인가요?"
+    ]
+  },
+  {
+    "id": "inventory-reservations",
+    "title": "재고 예약",
+    "topic": "상태 처리",
+    "minutes": 45,
+    "summary": "주문을 받은 순서대로 재고를 예약하세요. 재전송이 있거나 주문의 일부 품목이 품절된 상황에서도 재고가 정확해야 합니다.",
+    "signature": "reserve_orders(stock, orders) → ReservationReport",
+    "requirements": [
+      "stock은 SKU를 0 이상의 정수 수량에 매핑합니다. 각 주문은 order_id와 한 줄 이상의 items를 가지며, 품목에는 sku와 양의 정수 quantity가 있습니다.",
+      "주문은 입력 순서대로 처리하세요. 이전에 등장한 order_id는 최초 처리 결과나 이번 요청 내용에 관계없이 duplicate로 기록하고 재고를 유지하세요.",
+      "주문 안에서 같은 SKU가 여러 번 나오면 수량을 합치세요. 등록되지 않은 SKU가 있거나 총수량이 부족하면 주문 전체를 insufficient_stock으로 기록하고 모든 재고를 유지하세요.",
+      "모든 품목을 충족할 수 있으면 각 수량을 차감하고 reserved를 기록하세요. 수량이 0이 된 SKU도 남은 재고에 포함합니다.",
+      "remaining_stock과 results를 담은 딕셔너리를 반환하세요. results의 각 행은 order_id와 status를 가지며 입력 주문과 같은 순서입니다. 입력 stock과 orders의 값은 수정하지 마세요."
+    ],
+    "exampleInput": "stock = {\"board\": 3, \"case\": 1}\norders = [\n  {\"order_id\": \"A\", \"items\": [{\"sku\": \"board\", \"quantity\": 2}, {\"sku\": \"case\", \"quantity\": 2}]},\n  {\"order_id\": \"B\", \"items\": [{\"sku\": \"board\", \"quantity\": 3}]},\n  {\"order_id\": \"B\", \"items\": [{\"sku\": \"case\", \"quantity\": 1}]}\n]",
+    "exampleOutput": "{\n  \"remaining_stock\": {\"board\": 0, \"case\": 1},\n  \"results\": [\n    {\"order_id\": \"A\", \"status\": \"insufficient_stock\"},\n    {\"order_id\": \"B\", \"status\": \"reserved\"},\n    {\"order_id\": \"B\", \"status\": \"duplicate\"}\n  ]\n}",
+    "reviewQuestions": [
+      "검증 중 예상치 못한 품절이 발견되어도 앞 품목의 재고가 차감되지 않는 근거는 무엇인가요?",
+      "실패한 주문 ID도 재전송 방지에 포함하는 규칙을 어떻게 검증했나요?",
+      "이 코드를 동시 주문을 처리하는 서비스에 쓴다면 어떤 조건을 추가로 확인해야 하나요?"
+    ]
+  }
+]
